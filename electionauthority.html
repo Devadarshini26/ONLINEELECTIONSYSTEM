@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Authority Login</title>
+    <style>
+        /* Styles for headings */
+        h2 {
+            color: #333;
+        }
+
+        /* Styles for forms */
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            margin-left: 15%;
+            margin-right:15%;
+            width: 72%;
+        }
+
+        /* Styles for input fields */
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="submit"],
+        input[type="radio"] {
+            width: 300px;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Styles for submit button */
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Change submit button color on hover */
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Styles for radio buttons */
+        input[type="radio"] {
+            margin-right: 1 px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            form {
+                width: 80%;
+                margin: 0 auto;
+            }
+        }
+		.go-home-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Change Go Home button color on hover */
+.go-home-button:hover {
+    background-color: #005f79;
+}
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">AUTHORITY LOGIN</h1>
+    <form action="#" method="post" id="loginForm" onsubmit="return validateForm()">
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <input type="submit" value="Login">
+    </form>
+<section>
+ <a href="index.html" class="go-home-button">Go Home</a>
+
+      </section> 
+    <script>
+        function validateForm() {
+            // Perform your validation here, e.g., check user ID and password
+
+            // For demonstration purposes, assume login is successful
+            // Replace this with your actual validation logic
+            var userId = document.getElementById("userId").value;
+            var password = document.getElementById("password").value;
+            if (userId === "admin" && password === "password") {
+                // Redirect to another page after successful login
+                window.location.href = "eahome.html";
+                return false; // Prevent form submission
+            } else {
+                // Add your login failure handling here
+                alert("Invalid credentials. Please try again.");
+                return false; // Prevent form submission
+            }
+        }
+    </script>
+</body>
+</html>

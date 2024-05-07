@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register Form</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+	<style>
+        /* CSS for styling the "Go Home" button */
+        .gohome-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff; /* Blue color */
+            color: #fff; /* White text */
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* On hover, change background color */
+        .gohome-button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        /* On click, change background color */
+        .gohome-button:active {
+            background-color: #003366; /* Even darker blue */
+        }
+    </style>
+</head>
+<body>
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <h1 style="text-align: center;">VOTER LOGIN </h1>
+  </div>
+    
+    <form id="loginForm" action="login.php" method="post">
+        Email: <input id="loginEmail" type="email" name="email" required><br>
+        Password: <input id="loginPassword" type="password" name="password" required><br>
+        <input type="submit" value="Login" id="loginButton">
+        <a href="password.php" id="forgotPasswordLink">Forgot password?</a>
+    </form>
+
+<div style="display: flex; align-items: center; justify-content: center;">
+  <h1 style="text-align: center;">VOTER REGISTRATION</h1>
+</div>
+    
+    <form id="registrationForm" action="register.php" method="post">
+        Name: <input id="regName" type="text" name="name" required><br>
+        Aadhaar Number: <input id="regAadhaar" type="text" name="aadhaar_number" maxlength="12" required><br>
+        Voter ID: <input id="regVoterID" type="text" name="voter_id" maxlength="10" required><br>
+        Phone Number: <input id="regPhone" type="text" name="phone_number" maxlength="10" required><br>
+        Address: <input id="regAddress" type="text" name="address" required><br>
+        Age: <input id="regAge" type="number" name="age" min="18" max="100" required><br>
+        Gender: <br>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <input type="radio" name="gender" value="Other"> Other<br><br>
+        National ID: <input id="regNationalID" type="text" name="national_id" maxlength="5" required><br>
+        Unique Passcode: <input id="regPasscode" type="password" name="passcode" minlength="3" maxlength="8" required><br>
+        Email: <input id="regEmail" type="email" name="email" required><br>
+        Ward Number: <input id="regWardNumber" type="number" name="ward_number" min="0" max="999" required><br>
+        <input type="submit" value="Register" id="registerButton">
+        <button type="button" onclick="clearFields()">Clear</button>
+    </form>
+    
+    <section>
+       <a href="index.html" class="gohome-button">Go Home</a>	 
+
+    <script>
+        // Function to clear all input fields
+        function clearFields() {
+            var inputs = document.querySelectorAll("input[type='text'], input[type='email'], input[type='password'], input[type='number']");
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = "";
+            }
+        }
+
+        // Login Form Test Cases
+        document.getElementById("loginButton").addEventListener("click", function(event) {
+            var email = document.getElementById("loginEmail").value;
+            var password = document.getElementById("loginPassword").value;
+            if (!email.includes("@")) {
+                event.preventDefault();
+                alert("Invalid email format!");
+            }
+            // Additional test cases can be added for password validation
+        });
+
+        // Registration Form Test Cases
+        document.getElementById("registerButton").addEventListener("click", function(event) {
+            var email = document.getElementById("regEmail").value;
+            var aadhaar = document.getElementById("regAadhaar").value;
+            var voterID = document.getElementById("regVoterID").value;
+            var phone = document.getElementById("regPhone").value;
+            var age = document.getElementById("regAge").value;
+            var passcode = document.getElementById("regPasscode").value;
+            var nationalID = document.getElementById("regNationalID").value;
+            var wardNumber = document.getElementById("regWardNumber").value;
+
+            if (aadhaar.length !== 12 || isNaN(aadhaar)) {
+                event.preventDefault();
+                alert("Aadhaar number should be 12 digits.");
+            }
+
+            if (voterID.length !== 10 || !/^[a-zA-Z]{3}\d{7}$/.test(voterID)) {
+                event.preventDefault();
+                alert("Voter ID should be 10-digit alphanumeric with first 3 characters as alphabets.");
+            }
+
+            if (phone.length !== 10 || isNaN(phone)) {
+                event.preventDefault();
+                alert("Phone number should be 10 digits.");
+            }
+
+            if (age < 18 || age > 100) {
+                event.preventDefault();
+                alert("Age should be greater than 18.");
+            }
+
+            if (!/^\d{5}$/.test(nationalID)) {
+                event.preventDefault();
+                alert("National ID should be 5 digits.");
+            }
+
+            if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(passcode) || passcode.length < 3 || passcode.length > 8) {
+                event.preventDefault();
+                alert("Passcode should be 3 to 8 characters with at least one uppercase letter, one lowercase letter, one special character, and one numeric digit.");
+            }
+
+            if (!email.includes("@")) {
+                event.preventDefault();
+                alert("Invalid email format!");
+            }
+
+            if (wardNumber.length !== 3 || isNaN(wardNumber)) {
+                event.preventDefault();
+                alert("Ward number should be a 3-digit number.");
+            }
+        });
+
+      
+    </script>
+</body>
+</html>

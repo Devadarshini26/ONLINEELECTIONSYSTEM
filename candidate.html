@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Election Candidate Registration Form</title>
+<style>
+/* Styles for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Styles for headings */
+h2 {
+    color: #333;
+}
+
+/* Styles for forms */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    margin-left: 15%;
+    margin-right:15%;
+    width: 72%;
+}
+
+/* Styles for input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="submit"],
+input[type="radio"],
+textarea {
+    width: 300px;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for submit button */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+	display: block;
+    margin: 0 auto;
+}
+
+/* Change submit button color on hover */
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Styles for radio buttons */
+input[type="radio"] {
+    margin-right: 1 px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+.go-home-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Change Go Home button color on hover */
+.go-home-button:hover {
+    background-color: #005f79;
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align: center;">CANDIDATE REGISTRATION</h1>
+
+<form id="candidateForm" action="candidateregister.php" method="post">
+    <label for="fullname">Full Name:</label>
+    <input type="text" id="fullname" name="fullname" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="party">Political Party:</label>
+    <input type="text" id="party" name="party" required><br>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" min="21" max="60" required><br>
+
+    <label for="gender">Gender:</label>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br>
+
+    <label for="platform">Platform:</label><br>
+    <textarea id="platform" name="platform" rows="4" cols="50" required></textarea><br>
+
+    <input type="submit" value="Submit">
+    <button type="button" onclick="clearForm()">Clear</button>
+</form>
+ <a href="index.html" class="go-home-button">Go Home</a>
+
+<script>
+function clearForm() {
+    document.getElementById("candidateForm").reset();
+}
+
+document.getElementById("fullname").addEventListener("input", function() {
+    var value = this.value.trim();
+    if (value !== this.value) {
+        alert("Please remove leading or trailing spaces from Full Name.");
+        this.value = value;
+    }
+});
+
+document.getElementById("party").addEventListener("input", function() {
+    var value = this.value.trim();
+    if (/\d/.test(value)) {
+        alert("Political Party name cannot contain numbers.");
+        this.value = '';
+    }
+});
+
+document.getElementById("party").addEventListener("input", function() {
+    var value = this.value.trim();
+    if (/[^a-zA-Z0-9\s]/.test(value)) {
+        alert("Political Party name cannot contain special characters.");
+        
+    }
+});
+
+document.getElementById("age").addEventListener("keyup", function() {
+    var value = this.value.trim();
+    if (isNaN(parseInt(value))) {
+        alert("Age must be a number.");
+        this.value = '';
+    }
+});
+document.getElementById("platform").addEventListener("input", function() {
+    var value = this.value.trim();
+    if (value.match(/[\r\n]{3,}/)) {
+        alert("Platform text should not have excessive line breaks.");
+        this.value = this.value.replace(/[\r\n]{3,}/g, "\n\n");
+    }
+});
+
+document.getElementById("platform").addEventListener("input", function() {
+    var value = this.value.trim();
+    if (value.trim() === '') {
+        alert("Platform text cannot be empty.");
+        this.value = '';
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complaint Form</title>
+<style>
+/* Styles for forms */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    margin-left: 15%;
+    margin-right:15%;
+    width: 72%;
+}
+
+/* Styles for input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="submit"],
+input[type="radio"],
+textarea {
+    width: 300px;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for submit button */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Change submit button color on hover */
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.go-home-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Change Go Home button color on hover */
+.go-home-button:hover {
+    background-color: #005f79;
+}
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+</style>
+</head>
+<body>
+<h1 style="text-align: center;">COMPLAINT FORM </h1>
+<form id="complaintForm" action="complaintform.php" method="post">
+  <div class="form-group">
+    <label for="full_name">Full Name</label>
+    <input type="text" id="full_name" name="full_name" required>
+  </div>
+  <div class="form-group">
+    <label for="date_of_incident">Date of Incident</label>
+    <input type="date" id="date_of_incident" name="date_of_incident" required>
+  </div>
+  <div class="form-group">
+    <label for="nature_of_complaint">Nature of Complaint</label>
+    <input type="text" id="nature_of_complaint" name="nature_of_complaint" required>
+  </div>
+  <div class="form-group">
+    <label for="description_of_incident">Description of Incident</label>
+    <textarea id="description_of_incident" name="description_of_incident" rows="4" required></textarea>
+  </div>
+<div class="form-group">
+    <label for="contact_information">Contact Information</label>
+    <input type="email" id="contact_information" name="contact_information" required>
+    <div id="contact_information_error" style="color: red;"></div>
+  </div>
+  <input type="submit" value="Submit">
+  <button onclick="clearForm()">Clear Form</button>
+</form>
+
+<section>
+  <a href="index.html" class="go-home-button">Go Home</a>
+</section> 
+
+<script>
+function clearForm() {
+    document.getElementById("complaintForm").reset();
+}
+
+document.getElementById("complaintForm").addEventListener("submit", function(event) {
+    var natureOfComplaint = document.getElementById("nature_of_complaint").value;
+    var currentDate = new Date();
+    var incidentDate = new Date(document.getElementById("date_of_incident").value);
+
+    // Test for specific special characters in nature of complaint field
+    var specialCharactersRegex = /[*&]/;
+    if (specialCharactersRegex.test(natureOfComplaint)) {
+        alert("Please avoid using special characters like asterisks (*) or ampersands (&) in the nature of complaint field.");
+        event.preventDefault();
+        return;
+    }
+
+    // Test for date of incident not in the future
+    if (incidentDate > currentDate) {
+        alert("Date of incident cannot be set in the future.");
+        event.preventDefault();
+        return;
+    }
+
+    // Test for malicious code in description of incident
+var description = document.getElementById("description_of_incident").value;
+var codeRegex = /<\s*(\w+)((\s+(\w|\w[\w-]*\w)(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/gi;
+
+if (codeRegex.test(description)) {
+    alert("Please refrain from including any form of code in the description of the incident.");
+    event.preventDefault();
+    return;
+}
+// Assuming this code is within a form submission event handler
+function validateForm(event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Get the email value and trim any white spaces
+    var email = document.getElementById("contact_information").value.trim();
+
+    // Check if email contains uppercase letters
+    if (email.toUpperCase() !== email) {
+        // If it does, show an alert and return false to prevent form submission
+        alert("Email should not contain uppercase letters.");
+        return false;
+    }
+
+    // If the email is valid, you can proceed with form submission
+    // Otherwise, return false to prevent it
+    return true;
+}
+
+
+    // Test for excessively long description
+    var maxDescriptionLength = 500; // Example maximum length
+    if (description.length > maxDescriptionLength) {
+        alert("Description exceeds the maximum allowed length of " + maxDescriptionLength + " characters.");
+        event.preventDefault();
+        return;
+    }
+});
+
+
+// Limit input length
+document.getElementById("full_name").maxLength = 50; // Example maximum length
+document.getElementById("nature_of_complaint").maxLength = 100; // Example maximum length
+document.getElementById("contact_information").maxLength = 100; // Example maximum length
+</script>
+
+
+</body>
+</html>

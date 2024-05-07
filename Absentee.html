@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absentee Ballot Request Form</title>
+<style>
+/* Styles for forms */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 72%;
+}
+
+/* Styles for input fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="submit"],
+input[type="radio"] {
+    width: 300px;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for submit button */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Change submit button color on hover */
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Styles for radio buttons */
+input[type="radio"] {
+    margin-right: 1px;
+}
+
+/* Error message styles */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.go-home-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Change Go Home button color on hover */
+.go-home-button:hover {
+    background-color: #005f79;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+</style>
+</head>
+<body>
+<h1> ABSENTEE BALLOT FORM </h1>
+<form id="absenteeForm" action="absentee.php" method="post" onsubmit="return validateForm()">
+    <label for="fullname">Full Name</label>
+    <input type="text" id="fullname" name="fullname" required><br>
+    <span id="fullnameError" class="error-message"></span>
+
+    <label for="voterid">Voter ID</label>
+    <input type="text" id="voterid" name="voterid" required><br>
+    <span id="voteridError" class="error-message"></span>
+
+    <label for="reason">Reason for Absentee Voting</label>
+    <input type="text" id="reason" name="reason" required><br>
+    <span id="reasonError" class="error-message"></span>
+
+    <label for="address">Mailing Address</label>
+    <input type="text" id="address" name="address" required><br>
+    <span id="addressError" class="error-message"></span>
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" required><br>
+    <span id="emailError" class="error-message"></span>
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="phone" required><br>
+    <span id="phoneError" class="error-message"></span>
+
+    <input type="submit" value="Submit">
+    <input type="button" value="Clear Form" onclick="clearForm()">
+</form>
+<section>
+   <a href="index.html" class="go-home-button">Go Home</a>
+</section>
+
+<script>
+function validateForm() {
+    var isValid = true;
+
+    // Test cases
+    var fullname = document.getElementById("fullname").value.trim();
+    var voterid = document.getElementById("voterid").value.trim();
+    var reason = document.getElementById("reason").value.trim();
+    var address = document.getElementById("address").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var phone = document.getElementById("phone").value.trim();
+
+    // Test cases for Full Name
+    if (!fullname) {
+        alert("Please enter your full name.");
+        isValid = false;
+    } else if (!/^[a-zA-Z\s]+$/.test(fullname)) {
+        alert("Please enter a valid name.");
+        isValid = false;
+    }
+
+   // Test cases for Voter ID
+if (!voterid || voterid.length !== 10 || !/^[a-zA-Z]{3}\d{7}$/.test(voterid)) {
+    event.preventDefault();
+    alert("Voter ID should be 10 characters long and start with 3 alphabets followed by 7 digits.");
+    isValid = false;
+}
+
+    // Test cases for Reason
+    if (!reason) {
+        alert("Please enter a reason for absentee voting.");
+        isValid = false;
+    } else if (/[\uD800-\uDFFF]/.test(reason)) {
+        alert("Emojis are not allowed in the reason field.");
+        isValid = false;
+    } else {
+        // Add restricted words in absentee reason
+        var restrictedWords = ["ashamed", "abused", "betrayed", "corrupt", "drama", "hypocrisy", "incompetent", "anarchist", "dictatorial", "Khalistani", "bloodshed", "bloody", "abused", "cheated", "childishness", "corrupt", "coward", "criminal", "disgrace", "donkey", "eyewash", "fudge", "hooliganism", "hypocrisy", "incompetent", "mislead", "lie", "untrue", "anarchist", "lollypop", "foolish", "sexual harassment"];
+
+        var lowerReason = reason.toLowerCase();
+        for (var i = 0; i < restrictedWords.length; i++) {
+            if (lowerReason.includes(restrictedWords[i])) {
+                alert("Please provide a valid reason.");
+                isValid = false;
+                break;
+            }
+        }
+    }
+
+    // Test cases for Address
+    if (!address) {
+        alert("Please enter your mailing address.");
+        isValid = false;
+    }
+
+    // Test cases for Email
+    if (!email) {
+        alert("Please enter your email address.");
+        isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        alert("Please enter a valid email address.");
+        isValid = false;
+    }
+
+    // Test cases for Phone
+    if (!phone) {
+        alert("Please enter your phone number.");
+        isValid = false;
+    } else if (!/^\d{10}$/.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+
+function clearForm() {
+    document.getElementById("absenteeForm").reset();
+}
+</script>
+</body>
+</html>

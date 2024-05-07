@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<style>
+/* Styles for headings */
+h2 {
+    color: #333;
+}
+
+/* Styles for forms */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    width: 300px;
+}
+
+/* Styles for input fields */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for submit button */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 4px;
+}
+
+/* Change submit button color on hover */
+input[type="submit"]:hover {
+    background-color: #45a049;
+	
+}
+.go-home-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Change Go Home button color on hover */
+.go-home-button:hover {
+    background-color: #005f79;
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align: center;">ADMIN LOGIN</h1>
+
+<form action="#" method="post" onsubmit="return validateForm()">
+    <label for="userid">UserID:</label>
+    <input type="text" id="userid" name="userid" required><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <input type="submit" value="Login">
+</form>
+<section>
+ <a href="index.html" class="go-home-button">Go Home</a>
+      </section> 
+
+<script>
+function validateForm() {
+    var userid = document.getElementById("userid").value;
+    var password = document.getElementById("password").value;
+
+    // Check if username is admin and password is password
+    if (userid.trim() === "admin" && password.trim() === "password") {
+        // Redirect to voting.html
+        window.location.href = "adminhome.html";
+        return false; // Prevent form submission since we are redirecting
+    } else {
+        alert("Invalid username or password");
+        return false; // Prevent form submission
+    }
+}
+</script>
+
+</body>
+</html>
